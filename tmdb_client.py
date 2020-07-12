@@ -26,6 +26,16 @@ def get_single_movie(movie_id):
     return response.json()
 
 
+def get_movie_images(movie_id):
+    headers = head()
+    endpoint = f"https://api.themoviedb.org/3/movie/{movie_id}/images"
+    response = requests.get(endpoint, headers=headers)
+    return response.json()
+
+
+
+
+
 def get_movies(how_many, list_type):
     data = get_movies_list(list_type)
     return data["results"][:how_many]
@@ -48,8 +58,20 @@ def get_pic_url(backdrop_path, size="w342"):
     return f"{base_url}{size}/{backdrop_path}"
 
 
+
 def get_single_movie_cast(movie_id):
     headers = head()
     endpoint = f"https://api.themoviedb.org/3/movie/{movie_id}/credits"
     response = requests.get(endpoint, headers=headers)
     return response.json()["cast"]
+
+
+
+
+
+
+
+
+
+
+
