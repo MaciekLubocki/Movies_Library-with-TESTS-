@@ -1,11 +1,17 @@
 import requests
-
-API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMWYwMDliNmE5OTYxYTRhMmY0MDQ2YmE3OTU4NjdhNSIsInN1YiI6IjVlZTg4ZmVhNjhiNzY2MDAyM2JhNmRjZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Gasjj-1s35UiWCzTFzH7x0ybmYBDi77vtuHzXsY9kvk"
-
+import os
+API_TOKEN = os.environ.get("TMDB_API_TOKEN", "")
 
 def head():
     header = {"Authorization": f"Bearer {API_TOKEN}"}
     return header
+
+def call_tmdb_api(endpoint):
+    headers = head()
+    full_url = f"https://api.themoviedb.org/3/{endpoint}"
+    response = requests.get(full_url, headers=headers)
+    response.raise_for_status()
+    return response.json()
 
 
 def get_movies_list(list_type):
@@ -33,9 +39,6 @@ def get_movie_images(movie_id):
     return response.json()
 
 
-
-
-
 def get_movies(how_many, list_type):
     data = get_movies_list(list_type)
     return data["results"][:how_many]
@@ -58,20 +61,8 @@ def get_pic_url(backdrop_path, size="w342"):
     return f"{base_url}{size}/{backdrop_path}"
 
 
-
 def get_single_movie_cast(movie_id):
     headers = head()
     endpoint = f"https://api.themoviedb.org/3/movie/{movie_id}/credits"
     response = requests.get(endpoint, headers=headers)
     return response.json()["cast"]
-
-
-
-
-
-
-
-
-
-
-
