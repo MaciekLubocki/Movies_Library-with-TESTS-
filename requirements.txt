@@ -40,7 +40,6 @@ parso==0.7.0
 pep8==1.7.1
 pickleshare==0.7.5
 pluggy==0.13.1
-post==2019.4.13
 prompt-toolkit==3.0.5
 public==2019.4.13
 py==1.9.0
