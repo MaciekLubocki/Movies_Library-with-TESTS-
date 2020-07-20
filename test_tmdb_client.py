@@ -35,7 +35,6 @@ def test_get_json(monkeypatch):
 
     def mock_get(*args, **kwargs):
         return MockResponse.json()
-
     monkeypatch.setattr(requests, "get", mock_get)
     result = tmdb_client.requests.get("https://fakeurl")
     assert result["mock_key"] == "mock_response"
